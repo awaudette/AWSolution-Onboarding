@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forfaits — AW Solution</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black:      #02050c;
+    --surface:    #0d1424;
+    --card:       #121928;
+    --card-hover: #16203a;
+    --blue:       #0362e3;
+    --blue-soft:  rgba(3,98,227,0.15);
+    --white:      #ffffff;
+    --cream:      #ebe5e5;
+    --text-1:     #f0f4ff;
+    --text-2:     #a8b4cc;
+    --text-3:     #6b7a94;
+    --border:     rgba(255,255,255,0.09);
+    --border-blue:rgba(3,98,227,0.55);
+  }
+
+  body {
+    background-color: var(--black);
+    color: var(--text-1);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+  }
+
+  .page {
+    max-width: 1020px;
+    margin: 0 auto;
+    padding: 56px 40px 100px;
+  }
+
+  /* HEADER */
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 80px;
+  }
+
+  .logo-wrap {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .logo-img {
+    width: 90px;
+    height: 90px;
+    object-fit: contain;
+  }
+
+  .logo-text {
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    font-size: 15px;
+    letter-spacing: 0.05em;
+    color: var(--text-1);
+  }
+
+  .header-tag {
+    font-size: 11px;
+    font-weight: 400;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    border: 0.5px solid var(--border);
+    padding: 6px 14px;
+    border-radius: 100px;
+  }
+
+  /* HERO */
+  .hero { margin-bottom: 64px; margin-top: -24px; }
+
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 24px;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(38px, 5vw, 58px);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--white);
+    margin-bottom: 20px;
+    max-width: 560px;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--cream);
+  }
+
+  .hero-sub {
+    font-size: 15px;
+    font-weight: 300;
+    color: var(--text-2);
+    line-height: 1.75;
+    max-width: 480px;
+  }
+
+  .divider {
+    height: 0.5px;
+    background: var(--border);
+    margin-bottom: 56px;
+  }
+
+  /* PLANS GRID */
+  .plans {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 36px;
+    align-items: start;
+  }
+
+  .plan {
+    background: var(--card);
+    border: 0.5px solid var(--border);
+    border-radius: 18px;
+    padding: 36px 26px 30px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: border-color 0.2s, background 0.2s;
+  }
+
+  .plan:hover {
+    background: var(--card-hover);
+    border-color: rgba(255,255,255,0.13);
+  }
+
+  .plan.featured {
+    border: 1px solid var(--border-blue);
+    background: linear-gradient(155deg, #0e1b36 0%, #0a1220 100%);
+  }
+
+  .plan.featured:hover {
+    background: linear-gradient(155deg, #111f3e 0%, #0c1428 100%);
+  }
+
+  .plan-badge {
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--blue);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    padding: 4px 14px;
+    border-radius: 100px;
+    white-space: nowrap;
+  }
+
+  .plan-tier {
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--text-3);
+    margin-bottom: 7px;
+  }
+
+  .plan-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 27px;
+    font-weight: 400;
+    color: var(--white);
+    margin-bottom: 26px;
+  }
+
+  /* PRICE BLOCK — même structure pour les 3 forfaits */
+  .price-block {
+    margin-bottom: 4px;
+  }
+
+  .price-range {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 36px;
+    font-weight: 300;
+    color: var(--white);
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+
+  .price-range sup {
+    font-size: 16px;
+    font-weight: 400;
+    color: var(--text-2);
+    vertical-align: super;
+    margin-right: 1px;
+  }
+
+  .price-period {
+    font-size: 12px;
+    font-weight: 300;
+    color: var(--text-3);
+    margin-top: 5px;
+    margin-bottom: 4px;
+  }
+
+  .price-setup {
+    font-size: 12px;
+    font-weight: 300;
+    color: var(--text-3);
+    margin-bottom: 26px;
+    padding-bottom: 26px;
+    border-bottom: 0.5px solid var(--border);
+  }
+
+  .price-setup span {
+    color: var(--text-2);
+  }
+
+  /* FEATURES */
+  .plan-features {
+    list-style: none;
+    flex: 1;
+    margin-bottom: 28px;
+  }
+
+  .plan-features li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13px;
+    font-weight: 300;
+    line-height: 1.5;
+    padding: 7px 0;
+    border-bottom: 0.5px solid rgba(255,255,255,0.05);
+  }
+
+  .plan-features li:last-child { border-bottom: none; }
+  .plan-features li.on { color: var(--text-1); }
+  .plan-features li.off { color: var(--text-3); }
+
+  .icon-check {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    border-radius: 50%;
+    background: var(--blue-soft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .icon-off {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* CTA */
+  .plan-cta {
+    display: block;
+    text-align: center;
+    padding: 13px 20px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    text-decoration: none;
+    cursor: pointer;
+    transition: opacity 0.15s, background 0.15s;
+    border: none;
+  }
+
+  .plan-cta.ghost {
+    background: rgba(255,255,255,0.06);
+    color: var(--text-2);
+    border: 0.5px solid rgba(255,255,255,0.11);
+  }
+
+  .plan-cta.ghost:hover { background: rgba(255,255,255,0.1); }
+
+  .plan-cta.solid {
+    background: var(--blue);
+    color: #fff;
+  }
+
+  .plan-cta.solid:hover { opacity: 0.88; }
+
+  /* ENGAGEMENT NOTE */
+  .engagement {
+    background: var(--surface);
+    border: 0.5px solid var(--border);
+    border-radius: 14px;
+    padding: 22px 26px;
+    display: flex;
+    gap: 18px;
+    align-items: flex-start;
+    margin-bottom: 20px;
+  }
+
+  .eng-icon {
+    width: 34px;
+    height: 34px;
+    flex-shrink: 0;
+    border-radius: 9px;
+    background: var(--blue-soft);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1px;
+  }
+
+  .eng-title {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-1);
+    margin-bottom: 6px;
+    letter-spacing: 0.01em;
+  }
+
+  .eng-text {
+    font-size: 13px;
+    font-weight: 300;
+    color: var(--text-2);
+    line-height: 1.75;
+  }
+
+  .footnote {
+    font-size: 11.5px;
+    font-weight: 300;
+    color: var(--text-3);
+    text-align: center;
+    line-height: 1.9;
+  }
+
+  .footnote a {
+    color: var(--blue);
+    text-decoration: none;
+  }
+
+  @media (max-width: 760px) {
+    .page { padding: 36px 20px 72px; }
+    .plans { grid-template-columns: 1fr; }
+    .header { flex-direction: column; align-items: flex-start; gap: 14px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="logo-wrap">
+      <img class="logo-img" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMTIwMCIgem9vbUFuZFBhbj0ibWFnbmlmeSIgdmlld0JveD0iMCAwIDkwMCA0NzIuNDk5OTg2IiBoZWlnaHQ9IjYzMCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ieE1pZFlNaWQgbWVldCIgdmVyc2lvbj0iMS4wIj48ZGVmcz48Y2xpcFBhdGggaWQ9IjYwNGM3MWI4MjYiPjxwYXRoIGQ9Ik0gNDg3IDYwLjgxMjUgTCA2NTIgNjAuODEyNSBMIDY1MiA0MTEgTCA0ODcgNDExIFogTSA0ODcgNjAuODEyNSAiIGNsaXAtcnVsZT0ibm9uemVybyIvPjwvY2xpcFBhdGg+PGNsaXBQYXRoIGlkPSI0ZjQ1NzlmNDRjIj48cGF0aCBkPSJNIDExMi4yODkwNjIgNjQgTCAzMjIgNjQgTCAzMjIgNDExLjQ0MTQwNiBMIDExMi4yODkwNjIgNDExLjQ0MTQwNiBaIE0gMTEyLjI4OTA2MiA2NCAiIGNsaXAtcnVsZT0ibm9uemVybyIvPjwvY2xpcFBhdGg+PC9kZWZzPjxwYXRoIGZpbGw9IiMwMDFjNWQiIGQ9Ik0gNTM4LjE3NTc4MSA0MTAuMTM2NzE5IEwgNTM4LjIxNDg0NCA0MTAuMDUwNzgxIEMgNTM0LjEwNTQ2OSA0MTAuMDU4NTk0IDUzMC4wMDM5MDYgNDEwLjA1ODU5NCA1MjUuODk0NTMxIDQxMC4wNjI1IEMgNTI5Ljk4ODI4MSA0MTAuMDg1OTM4IDUzNC4wODIwMzEgNDEwLjExNzE4OCA1MzguMTc1NzgxIDQxMC4xMzY3MTkgIiBmaWxsLW9wYWNpdHk9IjEiIGZpbGwtcnVsZT0ibm9uemVybyIvPjxnIGNsaXAtcGF0aD0idXJsKCM2MDRjNzFiODI2KSI+PHBhdGggZmlsbD0iIzAzNjJlMyIgZD0iTSA2NTEuNjE3MTg4IDE2My44OTA2MjUgTCA2MDEuMTAxNTYyIDYwLjg3NSBDIDU2My4xOTkyMTkgMTQyLjY5OTIxOSA1MjUuMjk2ODc1IDIyNC41MTk1MzEgNDg3LjM5NDUzMSAzMDYuMzQzNzUgTCA1MzguMjM0Mzc1IDQxMC4wMTE3MTkgTCA2NTEuNjE3MTg4IDE2My44OTA2MjUgIiBmaWxsLW9wYWNpdHk9IjEiIGZpbGwtcnVsZT0ibm9uemVybyIvPjwvZz48cGF0aCBmaWxsPSIjMDM2MmUzIiBkPSJNIDczNy4xODc1IDYxLjMyMDMxMiBDIDY4My4zNTU0NjkgMTc3LjUzOTA2MiA2MjkuNTE1NjI1IDI5My43NTM5MDYgNTc1LjY4MzU5NCA0MDkuOTc2NTYyIEMgNjA4LjQ3NjU2MiA0MDkuODc4OTA2IDY0MS4yNjU2MjUgNDA5Ljc4NTE1NiA2NzQuMDQ2ODc1IDQwOS42OTUzMTIgQyA3MTEuOTQxNDA2IDMyNy45MDYyNSA3NDkuODI0MjE5IDI0Ni4xMjUgNzg3LjcxMDkzOCAxNjQuMzM1OTM4IEwgNzM3LjE4NzUgNjEuMzIwMzEyICIgZmlsbC1vcGFjaXR5PSIxIiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48ZyBjbGlwLXBhdGg9InVybCgjNGY0NTc5ZjQ0YykiPjxwYXRoIGZpbGw9IiMwMzYyZTMiIGQ9Ik0gMTEyLjI4OTA2MiA0MTEuMTIxMDk0IEMgMTQzLjkxNzk2OSA0MTEuMTIxMDk0IDE3NS41NDY4NzUgNDExLjEyMTA5NCAyMDcuMTc1NzgxIDQxMS4xMjEwOTQgQyAyNDUuMTcxODc1IDMyOS4yMjY1NjIgMjgzLjE2NDA2MiAyNDcuMzM5ODQ0IDMyMS4xNTYyNSAxNjUuNDQ5MjE5IEwgMjcxLjY0NDUzMSA2NC40ODA0NjkgQyAyMTguNTI3MzQ0IDE4MC4wMjM0MzggMTY1LjQwNjI1IDI5NS41NzAzMTIgMTEyLjI4OTA2MiA0MTEuMTIxMDk0ICIgZmlsbC1vcGFjaXR5PSIxIiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48L2c+PHBhdGggZmlsbD0iIzAzNjJlMyIgZD0iTSA1MzguMjE0ODQ0IDQxMC4wNTA3ODEgQyA1MzguMjI2NTYyIDQxMC4wNTA3ODEgNTM4LjIzODI4MSA0MTAuMDUwNzgxIDUzOC4yNTM5MDYgNDEwLjA1MDc4MSBMIDUzOC4yMzQzNzUgNDEwLjAxMTcxOSBMIDUzOC4yMTQ4NDQgNDEwLjA1MDc4MSAiIGZpbGwtb3BhY2l0eT0iMSIgZmlsbC1ydWxlPSJub256ZXJvIi8+PHBhdGggZmlsbD0iIzAzNjJlMyIgZD0iTSA0NDIuMDkzNzUgNDEwLjEzNjcxOSBDIDQ3MC4wMjczNDQgNDEwLjExNzE4OCA0OTcuOTYwOTM4IDQxMC4wODU5MzggNTI1Ljg5NDUzMSA0MTAuMDYyNSBDIDQ5Ny44NTkzNzUgNDA5Ljg5MDYyNSA0NjkuODMyMDMxIDQwOS43MTQ4NDQgNDQxLjgwMDc4MSA0MDkuNTUwNzgxIEMgNDQxLjg5ODQzOCA0MDkuNzQ2MDk0IDQ0MS45OTYwOTQgNDA5Ljk0MTQwNiA0NDIuMDkzNzUgNDEwLjEzNjcxOSAiIGZpbGwtb3BhY2l0eT0iMSIgZmlsbC1ydWxlPSJub256ZXJvIi8+PHBhdGggZmlsbD0iIzAwMWM1ZCIgZD0iTSA0ODcuMzk0NTMxIDMwNi4zNDM3NSBMIDM2OS4yNjE3MTkgNjUuNDUzMTI1IEwgMjcxLjY0NDUzMSA2NC40ODA0NjkgTCAzMjEuMTU2MjUgMTY1LjQ0OTIxOSBDIDM2MC45OTIxODggMjQ2LjA0Mjk2OSA0MDAuODI0MjE5IDMyNi42NDQ1MzEgNDQwLjY1NjI1IDQwNy4yMzgyODEgQyA0NDEuMDM5MDYyIDQwOC4wMDM5MDYgNDQxLjQxNzk2OSA0MDguNzc3MzQ0IDQ0MS44MDA3ODEgNDA5LjU1MDc4MSBDIDQ2OS44MzIwMzEgNDA5LjcxNDg0NCA0OTcuODU5Mzc1IDQwOS44OTA2MjUgNTI1Ljg5NDUzMSA0MTAuMDYyNSBDIDUzMC4wMDM5MDYgNDEwLjA1ODU5NCA1MzQuMTA1NDY5IDQxMC4wNTg1OTQgNTM4LjIxNDg0NCA0MTAuMDUwNzgxIEwgNTM4LjIzNDM3NSA0MTAuMDExNzE5IEwgNDg3LjM5NDUzMSAzMDYuMzQzNzUgIiBmaWxsLW9wYWNpdHk9IjEiIGZpbGwtcnVsZT0ibm9uemVybyIvPjwvc3ZnPg==" alt="AW Solution">
+      <span class="logo-text">AW Solution</span>
+    </div>
+    <span class="header-tag">Fidélisation &amp; CRM</span>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <p class="hero-eyebrow">Nos forfaits</p>
+    <h1 class="hero-title">Un programme de fidélisation <em>complet,</em> livré clé en main.</h1>
+    <p class="hero-sub">Une application mobile à votre image, un tableau de bord CRM puissant et un accompagnement stratégique, le tout dans un seul forfait mensuel.</p>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- PLANS -->
+  <section class="plans">
+
+    <!-- ESSENTIEL -->
+    <div class="plan">
+      <p class="plan-tier">Forfait 01</p>
+      <h2 class="plan-name">Essentiel</h2>
+      <div class="price-block">
+        <div class="price-range">99$ <span style="font-size:18px;color:var(--text-3)">à</span> 149$</div>
+      </div>
+      <p class="price-period">par succursale, par mois *</p>
+      <p class="price-setup"><span>Frais de mise en place</span> selon le nombre de succursales</p>
+      <ul class="plan-features">
+        <li class="on"><span class="icon-check"><svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3.2 5.7L8 1" stroke="#0362e3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Application iOS et Android à votre image</li>
+        <li class="on"><span class="icon-check"><svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3.2 5.7L8 1" stroke="#0362e3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Système de points et récompenses</li>
+        <li class="on"><span class="icon-check"><svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3.2 5.7L8 1" stroke="#0362e3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Mécanique de fidélisation quotidienne</li>
+        <li class="on"><span class="icon-check"><svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3.2 5.7L8 1" stroke="#0362e3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Promotions ciblées</li>
+        <li class="on"><span class="icon-check"><svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3.2 5.7L8 1" stroke="#0362e3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Campagnes push</li>
+        <li class="on"><span class="icon-check"><svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3.2 5.7L8 1" stroke="#0362e3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Centre de contrôle</li>
+        <li class="off"><span class="icon-off"><svg width="9" height="1.5" viewBox="0 0 9 1.5" fill="none"><path d="M0.5 0.75H8.5" stroke="#3a4a62" stroke-width="1.5" stroke-linecap="round"/></svg></span>Analytiques avancées</li>
+        <li class="off"><span class="icon-off"><svg width="9" height="1.5" viewBox="0 0 9 1.5" fill="none"><path d="M0.5 0.75H8.5" stroke="#3a4a62" stroke-width="1.5" stroke-linecap="round"/></svg></span>Segmentation comportementale</li>
+        <li class="off"><span class="icon-off"><svg width="9" height="1.5" viewBox="0 0 9 1.5" fill="none"><path d="M0.5 0.75H8.5" stroke="#3a4a62" stroke-width="1.5" stroke-linecap="round"/></svg></span>Alertes automatisées</li>
+        <li class="off"><span class="icon-off"><svg width="9" height="1.5" viewBox="0 0 9 1.5" fill="none"><path d="M0.5 0.75H8.5" stroke="#3a4a62" stroke-width="1.5" stroke-linecap="round"/></svg></span>Rapport mensuel</li>
+        <li class="off"><span class="icon-off"><svg width="9" height="1.5" viewBox="0 0 9 1.5" fill="none"><path d="M0.5 0.75H8.5" stroke="#3a4a62" stroke-width="1.5" stroke-linecap="round"/></svg></span>Matériel de mise en marché fourni</li>
+        <li class="off"><span class="icon-off"><svg width="9" height="1.5" viewBox="0 0 9 1.5" fill="none"><path d="M0.5 0.75H8.5" stroke="#3a4a62" stroke-width="1.5" stroke-linecap="round"/></svg></span>Support prioritaire</li>
+        <li class="off"><span class="icon-off"><svg width="9" height="1.5" viewBox="0 0 9 1.5" fill="none"><path d="M0.5 0.75H8.5" stroke="#3a4a62" stroke-width="1.5" stroke-linecap="round"/></svg></span>Dashboard multi-succursales</li>
+        <li class="off"><span class="icon-off"><svg width="9" height="1.5" viewBox="0 0 9 1.5" fill="none"><path d="M0.5 0.75H8.5" stroke="#3a4a62" stroke-width="1.5" stroke-linecap="round"/></svg></span>Vue consolidée head office</li>
+        <li class="off"><span class="icon-off"><svg width="9" height="1.5" viewBox="0 0 9 1.5" fill="none"><path d="M0.5 0.75H8.5" stroke="#3a4a62" stroke-width="1.5" stroke-linecap="round"/></svg></span>Données isolées par propriétaire de franchise</li>
+        <li class="off"><span class="icon-off"><svg width="9" height="1.5" viewBox="0 0 9 1.5" fill="none"><path d="M0.5 0.75H8.5" stroke="#3a4a62" stroke-width="1.5" stroke-linecap="round"/></svg></span>Réunion stratégique mensuelle</li>
+        <li class="off"><span class="icon-off"><svg width="9" height="1.5" viewBox="0 0 9 1.5" fill="none"><path d="M0.5 0.75H8.5" stroke="#3a4a62" stroke-width="1.5" stroke-linecap="round"/></svg></span>Account manager dédié</li>
+        <li class="off"><span class="icon-off"><svg width="9" height="1.5" viewBox="0 0 9 1.5" fill="none"><path d="M0.5 0.75H8.5" stroke="#3a4a62" stroke-width="1.5" stroke-linecap="round"/></svg></span>Accès anticipé aux nouvelles fonctionnalités</li>
+      </ul>
+      <a href="https://www.awsolution.ca/demo" class="plan-cta ghost">Demander une démo</a>
+    </div>
+
+    <!-- PRESTIGE -->
+    <div class="plan featured">
+      <span class="plan-badge">Le plus populaire</span>
+      <p class="plan-tier">Forfait 02</p>
+      <h2 class="plan-name">Prestige</h2>
+      <div class="price-block">
+        <div class="price-range">149$ <span style="font-size:18px;color:var(--text-3)">à</span> 219$</div>
+      </div>
+      <p class="price-period">par succursale, par mois *</p>
+      <p class="price-setup"><span>Frais de mise en place</span> selon le nombre de succursales</p>
+      <ul class="plan-features">
+        <li class="on"><span class="icon-check"><svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3.2 5.7L8 1" stroke="#0362e3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Application iOS et Android à votre image</li>
+        <li class="on"><span class="icon-check"><svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3.2 5.7L8 1" stroke="#0362e3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Système de points et récompenses</li>
+        <li class="on"><span class="icon-check"><svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3.2 5.7L8 1" stroke="#0362e3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Mécanique de fidélisation quotidienne</li>
+        <li class="on"><span class="icon-check"><svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3.2 5.7L8 1" stroke="#0362e3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Promotions ciblées</li>
+        <li class="on"><span class="icon-check"><svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3.2 5.7L8 1" stroke="#0362e3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Campagnes push</li>
+        <li class="on"><span class="icon-check"><svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3.2 5.7L8 1" stroke="#0362e3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Centre de contrôle</li>
+        <li class="on"><span class="icon-check"><svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3.2 5.7L8 1" stroke="#0362e3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Analytiques avancées</li>
+        <li class="on"><span class="icon-check"><svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3.2 5.7L8 1" stroke="#0362e3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Segmentation comportementale</li>
+        <li class="on"><span class="icon-check"><svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3.2 5.7L8 1" stroke="#0362e3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Alertes automatisées quotidiennes</li>
+        <li class="on"><span class="icon-check"><svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3.2 5.7L8 1" stroke="#0362e3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Rapport mensuel</li>
+        <li class="on"><span class="icon-check"><svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3.2 5.7L8 1" stroke="#0362e3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Matériel de mise en marché fourni</li>
+        <li class="on"><span class="icon-check"><svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3.2 5.7L8 1" stroke="#0362e3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Support prioritaire</li>
+        <li class="on"><span class="icon-check"><svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3.2 5.7L8 1" stroke="#0362e3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Dashboard multi-succursales</li>
+        <li class="off"><span class="icon-off"><svg width="9" height="1.5" viewBox="0 0 9 1.5" fill="none"><path d="M0.5 0.75H8.5" stroke="#3a4a62" stroke-width="1.5" stroke-linecap="round"/></svg></span>Vue consolidée head office</li>
+        <li class="off"><span class="icon-off"><svg width="9" height="1.5" viewBox="0 0 9 1.5" fill="none"><path d="M0.5 0.75H8.5" stroke="#3a4a62" stroke-width="1.5" stroke-linecap="round"/></svg></span>Données isolées par propriétaire de franchise</li>
+        <li class="off"><span class="icon-off"><svg width="9" height="1.5" viewBox="0 0 9 1.5" fill="none"><path d="M0.5 0.75H8.5" stroke="#3a4a62" stroke-width="1.5" stroke-linecap="round"/></svg></span>Réunion stratégique mensuelle</li>
+        <li class="off"><span class="icon-off"><svg width="9" height="1.5" viewBox="0 0 9 1.5" fill="none"><path d="M0.5 0.75H8.5" stroke="#3a4a62" stroke-width="1.5" stroke-linecap="round"/></svg></span>Account manager dédié</li>
+        <li class="off"><span class="icon-off"><svg width="9" height="1.5" viewBox="0 0 9 1.5" fill="none"><path d="M0.5 0.75H8.5" stroke="#3a4a62" stroke-width="1.5" stroke-linecap="round"/></svg></span>Accès anticipé aux nouvelles fonctionnalités</li>
+      </ul>
+      <a href="https://www.awsolution.ca/demo" class="plan-cta solid">Demander une démo</a>
+    </div>
+
+    <!-- SIGNATURE -->
+    <div class="plan">
+      <p class="plan-tier">Forfait 03</p>
+      <h2 class="plan-name">Signature</h2>
+      <div class="price-block">
+        <div class="price-range">179$ <span style="font-size:18px;color:var(--text-3)">à</span> 249$</div>
+      </div>
+      <p class="price-period">par succursale, par mois *</p>
+      <p class="price-setup"><span>Frais de mise en place</span> selon le nombre de succursales</p>
+      <ul class="plan-features">
+        <li class="on"><span class="icon-check"><svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3.2 5.7L8 1" stroke="#0362e3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Application iOS et Android à votre image</li>
+        <li class="on"><span class="icon-check"><svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3.2 5.7L8 1" stroke="#0362e3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Système de points et récompenses</li>
+        <li class="on"><span class="icon-check"><svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3.2 5.7L8 1" stroke="#0362e3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Mécanique de fidélisation quotidienne</li>
+        <li class="on"><span class="icon-check"><svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3.2 5.7L8 1" stroke="#0362e3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Promotions ciblées</li>
+        <li class="on"><span class="icon-check"><svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3.2 5.7L8 1" stroke="#0362e3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Campagnes push guidées</li>
+        <li class="on"><span class="icon-check"><svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3.2 5.7L8 1" stroke="#0362e3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Centre de contrôle</li>
+        <li class="on"><span class="icon-check"><svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3.2 5.7L8 1" stroke="#0362e3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Analytiques avancées</li>
+        <li class="on"><span class="icon-check"><svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3.2 5.7L8 1" stroke="#0362e3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Segmentation comportementale</li>
+        <li class="on"><span class="icon-check"><svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3.2 5.7L8 1" stroke="#0362e3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Alertes automatisées quotidiennes</li>
+        <li class="on"><span class="icon-check"><svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3.2 5.7L8 1" stroke="#0362e3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Rapport mensuel</li>
+        <li class="on"><span class="icon-check"><svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3.2 5.7L8 1" stroke="#0362e3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Matériel de mise en marché fourni</li>
+        <li class="on"><span class="icon-check"><svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3.2 5.7L8 1" stroke="#0362e3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Dashboard multi-succursales</li>
+        <li class="on"><span class="icon-check"><svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3.2 5.7L8 1" stroke="#0362e3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Vue consolidée head office</li>
+        <li class="on"><span class="icon-check"><svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3.2 5.7L8 1" stroke="#0362e3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Données isolées par propriétaire de franchise</li>
+        <li class="on"><span class="icon-check"><svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3.2 5.7L8 1" stroke="#0362e3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Réunion stratégique mensuelle</li>
+        <li class="on"><span class="icon-check"><svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3.2 5.7L8 1" stroke="#0362e3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Account manager dédié</li>
+        <li class="on"><span class="icon-check"><svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3.2 5.7L8 1" stroke="#0362e3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Accès anticipé aux nouvelles fonctionnalités</li>
+        <li class="on"><span class="icon-check"><svg width="9" height="7" viewBox="0 0 9 7" fill="none"><path d="M1 3.5L3.2 5.7L8 1" stroke="#0362e3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>Support prioritaire</li>
+      </ul>
+      <a href="https://www.awsolution.ca/demo" class="plan-cta ghost">Demander une démo</a>
+    </div>
+
+  </section>
+
+  <!-- ENGAGEMENT NOTE -->
+  <div class="engagement">
+    <div class="eng-icon">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <circle cx="8" cy="8" r="6.5" stroke="#0362e3" stroke-width="1.2"/>
+        <path d="M8 5V8.5L10 10" stroke="#0362e3" stroke-width="1.2" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div>
+      <p class="eng-title">* Engagement de 12 mois</p>
+      <p class="eng-text">Un minimum de 12 mois est requis afin de permettre à votre programme de fidélisation d'atteindre sa pleine maturité. Les données deviennent significatives après 90 jours, et les résultats mesurables apparaissent à partir du 5e mois.</p>
+    </div>
+  </div>
+
+  <!-- FOOTNOTE -->
+  <p class="footnote">
+    Les prix sont exprimés en dollars canadiens. Les taxes applicables (TPS et TVQ) ne sont pas incluses.<br>
+    Une démo personnalisée est disponible sur demande — <a href="https://www.awsolution.ca/demo">awsolution.ca/demo</a>
+  </p>
+
+</div>
+</body>
+</html>
