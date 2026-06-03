@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AW Solution — Contrat de service</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --black:   #141f35;
+    --surface: #1e2d4a;
+    --blue:    #0362e3;
+    --white:   #ffffff;
+    --cream:   #ebe5e5;
+    --text-1:  #f0f4ff;
+    --text-2:  #a8b4cc;
+    --text-3:  #4a5568;
+    --border:  rgba(255,255,255,0.07);
+  }
+  html, body {
+    background: var(--black);
+    font-family: 'DM Sans', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    color: var(--text-1);
+  }
+
+  /* ── COVER ── */
+  .cover {
+    position: relative; width: 100%; min-height: 100vh;
+    display: grid; grid-template-rows: auto 1fr auto;
+    overflow: hidden; padding: 52px 64px;
+  }
+  .cover::before {
+    content: ''; position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(3,98,227,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(3,98,227,0.06) 1px, transparent 1px);
+    background-size: 72px 72px; z-index: 0;
+  }
+  .glow-tr { position:absolute;top:-180px;right:-100px;width:650px;height:650px;border-radius:50%;background:radial-gradient(circle,rgba(3,98,227,0.16) 0%,transparent 70%);z-index:0;pointer-events:none; }
+  .glow-bl { position:absolute;bottom:-200px;left:-200px;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(0,28,93,0.35) 0%,transparent 70%);z-index:0;pointer-events:none; }
+  .watermark { position:absolute;bottom:-60px;right:-20px;font-family:'Playfair Display',serif;font-size:280px;font-weight:300;color:rgba(3,98,227,0.04);line-height:1;pointer-events:none;z-index:1;letter-spacing:-0.05em;user-select:none; }
+  .accent-line { position:absolute;top:0;right:240px;width:1px;height:100%;background:linear-gradient(180deg,transparent,rgba(3,98,227,0.2) 30%,rgba(3,98,227,0.1) 70%,transparent);z-index:0; }
+
+  .cover-header { position:relative;z-index:2;display:flex;justify-content:space-between;align-items:center; }
+  .logo-lockup { display:flex;align-items:center;gap:16px; }
+  .logo-img { width:72px;height:72px;object-fit:contain; }
+  .logo-wordmark { display:flex;flex-direction:column;gap:2px; }
+  .logo-name { font-size:17px;font-weight:500;letter-spacing:0.04em;color:var(--white); }
+  .logo-tagline { font-size:11px;font-weight:300;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-2); }
+  .cover-meta { display:flex;flex-direction:column;align-items:flex-end;gap:6px; }
+  .meta-tag { font-size:10px;font-weight:400;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-2);border:0.5px solid rgba(255,255,255,0.1);padding:5px 14px;border-radius:100px; }
+  .meta-date { font-size:11px;font-weight:300;color:var(--text-3); }
+
+  .cover-body { position:relative;z-index:2;display:flex;flex-direction:column;justify-content:center;max-width:720px;padding:40px 0; }
+  .contract-label { display:inline-flex;align-items:center;gap:10px;margin-bottom:40px; }
+  .contract-dot { width:6px;height:6px;border-radius:50%;background:var(--blue); }
+  .contract-text { font-size:11px;font-weight:600;letter-spacing:0.25em;text-transform:uppercase;color:var(--blue); }
+  .cover-title { font-family:'Playfair Display',serif;font-size:clamp(40px,5.5vw,68px);font-weight:300;line-height:1.1;color:var(--white);letter-spacing:-0.02em;margin-bottom:48px; }
+  .cover-title em { font-style:italic;color:var(--cream); }
+  .cover-divider { width:64px;height:1.5px;background:linear-gradient(90deg,var(--blue),transparent);margin-bottom:40px; }
+
+  .cover-parties { display:grid;grid-template-columns:1fr 1fr;gap:32px 48px;max-width:600px; }
+  .party-block { display:flex;flex-direction:column;gap:8px; }
+  .party-label { font-size:10px;font-weight:500;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-3); }
+  .party-name { font-size:16px;font-weight:500;color:var(--text-1); }
+  .party-sub { font-size:12px;font-weight:300;color:var(--text-2); }
+  .party-neq { font-size:11px;font-weight:300;color:var(--text-3);letter-spacing:0.04em; }
+
+  .cover-footer { position:relative;z-index:2;display:flex;justify-content:space-between;align-items:flex-end; }
+  .footer-label { font-size:10px;font-weight:300;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-3); }
+  .footer-url { font-size:13px;font-weight:400;color:var(--blue);text-decoration:none;border-bottom:0.5px solid rgba(3,98,227,0.35);padding-bottom:2px; }
+
+  /* ── SECTIONS ── */
+  .section { max-width:1100px;margin:0 auto;padding:80px 64px; }
+  .section-alt { background:rgba(255,255,255,0.02);border-top:0.5px solid var(--border);border-bottom:0.5px solid var(--border); }
+
+  .eyebrow { display:inline-flex;align-items:center;gap:10px;margin-bottom:20px; }
+  .eyebrow-dot { width:6px;height:6px;border-radius:50%;background:var(--blue);flex-shrink:0; }
+  .eyebrow-text { font-size:11px;font-weight:600;letter-spacing:0.25em;text-transform:uppercase;color:var(--blue); }
+
+  .section-title { font-family:'Playfair Display',serif;font-size:clamp(28px,3.5vw,44px);font-weight:300;line-height:1.15;color:var(--white);margin-bottom:14px;letter-spacing:-0.01em; }
+  .section-title em { font-style:italic;color:var(--cream); }
+  .section-divider { height:0.5px;background:var(--border);margin:24px 0 44px; }
+  .section-body { font-size:15px;font-weight:300;line-height:1.85;color:var(--text-2);max-width:720px;margin-bottom:48px; }
+
+  /* CLAUSES */
+  .clause { display:grid;grid-template-columns:28px 1fr;gap:16px;padding:24px 0;border-bottom:0.5px solid var(--border); }
+  .clause-num { font-family:'Playfair Display',serif;font-size:13px;font-weight:300;color:var(--blue);letter-spacing:0.08em;padding-top:2px; }
+  .clause-content { display:flex;flex-direction:column;gap:6px; }
+  .clause-title { font-size:15px;font-weight:500;color:var(--text-1); }
+  .clause-text { font-size:13px;font-weight:300;color:var(--text-2);line-height:1.8; }
+
+  /* DYNAMIC FIELDS */
+  .fields-grid { display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px; }
+  .field-card { background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:24px 22px;display:flex;flex-direction:column;gap:10px; }
+  .field-label { font-size:10px;font-weight:500;letter-spacing:0.18em;text-transform:uppercase;color:var(--text-3); }
+  .field-input { background:rgba(255,255,255,0.04);border:0.5px solid rgba(255,255,255,0.12);border-radius:8px;padding:12px 14px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:300;color:var(--text-1);width:100%;outline:none;transition:border-color 0.15s; }
+  .field-input:focus { border-color:rgba(3,98,227,0.5); }
+  .field-input::placeholder { color:var(--text-3); }
+  .field-note { font-size:11px;font-weight:300;color:var(--text-3); }
+
+  /* TOTAL DISPLAY */
+  .total-card { background:linear-gradient(135deg,#0e1f45,#071535);border:1px solid rgba(3,98,227,0.3);border-radius:14px;padding:28px 24px;display:flex;justify-content:space-between;align-items:center; }
+  .total-label { font-size:13px;font-weight:300;color:var(--text-2); }
+  .total-amount { font-family:'Playfair Display',serif;font-size:36px;font-weight:300;color:var(--white);letter-spacing:-0.02em; }
+  .total-sub { font-size:11px;font-weight:300;color:var(--text-3); }
+
+  /* SIGNATURE */
+  .sig-grid { display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:32px; }
+  .sig-card { background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:36px 32px;display:flex;flex-direction:column;gap:20px; }
+  .sig-card--blue { background:linear-gradient(135deg,#0e1f45,#071535);border-color:rgba(3,98,227,0.25); }
+  .sig-party { font-size:10px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;color:var(--text-3); }
+  .sig-party--blue { color:var(--blue); }
+  .sig-field { display:flex;flex-direction:column;gap:6px; }
+  .sig-field-label { font-size:10px;font-weight:400;letter-spacing:0.14em;text-transform:uppercase;color:var(--text-3); }
+  .sig-field-value { font-size:15px;font-weight:300;color:var(--text-1);border-bottom:0.5px solid rgba(255,255,255,0.15);padding-bottom:10px; }
+  .sig-input { background:transparent;border:none;border-bottom:0.5px solid rgba(255,255,255,0.15);padding:8px 0;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:300;color:var(--text-1);width:100%;outline:none; }
+  .sig-input::placeholder { color:var(--text-3); }
+  .sig-draw { width:100%;height:80px;background:rgba(255,255,255,0.03);border:0.5px solid rgba(255,255,255,0.1);border-radius:8px;cursor:crosshair;display:block; }
+
+  /* CHECKBOX */
+  .accept-wrap { display:flex;align-items:flex-start;gap:14px;padding:24px;background:var(--surface);border:1px solid var(--border);border-radius:14px;margin-bottom:14px;cursor:pointer; }
+  .accept-wrap input[type=checkbox] { width:18px;height:18px;flex-shrink:0;accent-color:var(--blue);cursor:pointer;margin-top:2px; }
+  .accept-text { font-size:13px;font-weight:300;color:var(--text-2);line-height:1.7; }
+  .accept-text strong { color:var(--text-1);font-weight:500; }
+
+  /* SUBMIT BTN */
+  .submit-btn { display:inline-flex;align-items:center;gap:10px;background:var(--blue);color:#fff;border:none;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;letter-spacing:0.02em;padding:18px 48px;border-radius:100px;cursor:pointer;box-shadow:0 8px 32px rgba(3,98,227,0.3);transition:opacity 0.15s; }
+  .submit-btn:hover { opacity:0.88; }
+  .submit-btn:disabled { opacity:0.4;cursor:not-allowed; }
+
+  #confirmation { display:none;padding:24px 28px;background:rgba(46,204,138,0.1);border:1px solid rgba(46,204,138,0.25);border-radius:14px;color:#2ecc8a;font-size:14px;font-weight:300;line-height:1.7; }
+
+  @keyframes fadeUp { from { opacity:0;transform:translateY(20px); } to { opacity:1;transform:translateY(0); } }
+  .cover-header { animation:fadeUp 0.7s ease both;animation-delay:0.05s; }
+  .cover-body   { animation:fadeUp 0.7s ease both;animation-delay:0.2s; }
+  .cover-footer { animation:fadeUp 0.7s ease both;animation-delay:0.4s; }
+</style>
+</head>
+<body>
+
+<!-- ═══ COVER ═══ -->
+<section class="cover">
+  <div class="glow-tr"></div><div class="glow-bl"></div>
+  <div class="accent-line"></div><div class="watermark">AW</div>
+
+  <header class="cover-header">
+    <div class="logo-lockup">
+      <img class="logo-img" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMTIwMCIgem9vbUFuZFBhbj0ibWFnbmlmeSIgdmlld0JveD0iMCAwIDkwMCA0NzIuNDk5OTg2IiBoZWlnaHQ9IjYzMCIgcHJlc2VydmVBc3BlY3RSYXRpbz0ieE1pZFlNaWQgbWVldCIgdmVyc2lvbj0iMS4wIj48ZGVmcz48Y2xpcFBhdGggaWQ9IjYwNGM3MWI4MjYiPjxwYXRoIGQ9Ik0gNDg3IDYwLjgxMjUgTCA2NTIgNjAuODEyNSBMIDY1MiA0MTEgTCA0ODcgNDExIFogTSA0ODcgNjAuODEyNSAiIGNsaXAtcnVsZT0ibm9uemVybyIvPjwvY2xpcFBhdGg+PGNsaXBQYXRoIGlkPSI0ZjQ1NzlmNDRjIj48cGF0aCBkPSJNIDExMi4yODkwNjIgNjQgTCAzMjIgNjQgTCAzMjIgNDExLjQ0MTQwNiBMIDExMi4yODkwNjIgNDExLjQ0MTQwNiBaIE0gMTEyLjI4OTA2MiA2NCAiIGNsaXAtcnVsZT0ibm9uemVybyIvPjwvY2xpcFBhdGg+PC9kZWZzPjxwYXRoIGZpbGw9IiMwMDFjNWQiIGQ9Ik0gNTM4LjE3NTc4MSA0MTAuMTM2NzE5IEwgNTM4LjIxNDg0NCA0MTAuMDUwNzgxIEMgNTM0LjEwNTQ2OSA0MTAuMDU4NTk0IDUzMC4wMDM5MDYgNDEwLjA1ODU5NCA1MjUuODk0NTMxIDQxMC4wNjI1IEMgNTI5Ljk4ODI4MSA0MTAuMDg1OTM4IDUzNC4wODIwMzEgNDEwLjExNzE4OCA1MzguMTc1NzgxIDQxMC4xMzY3MTkgIiBmaWxsLW9wYWNpdHk9IjEiIGZpbGwtcnVsZT0ibm9uemVybyIvPjxnIGNsaXAtcGF0aD0idXJsKCM2MDRjNzFiODI2KSI+PHBhdGggZmlsbD0iIzAzNjJlMyIgZD0iTSA2NTEuNjE3MTg4IDE2My44OTA2MjUgTCA2MDEuMTAxNTYyIDYwLjg3NSBDIDU2My4xOTkyMTkgMTQyLjY5OTIxOSA1MjUuMjk2ODc1IDIyNC41MTk1MzEgNDg3LjM5NDUzMSAzMDYuMzQzNzUgTCA1MzguMjM0Mzc1IDQxMC4wMTE3MTkgTCA2NTEuNjE3MTg4IDE2My44OTA2MjUgIiBmaWxsLW9wYWNpdHk9IjEiIGZpbGwtcnVsZT0ibm9uemVybyIvPjwvZz48cGF0aCBmaWxsPSIjMDM2MmUzIiBkPSJNIDczNy4xODc1IDYxLjMyMDMxMiBDIDY4My4zNTU0NjkgMTc3LjUzOTA2MiA2MjkuNTE1NjI1IDI5My43NTM5MDYgNTc1LjY4MzU5NCA0MDkuOTc2NTYyIEMgNjA4LjQ3NjU2MiA0MDkuODc4OTA2IDY0MS4yNjU2MjUgNDA5Ljc4NTE1NiA2NzQuMDQ2ODc1IDQwOS42OTUzMTIgQyA3MTEuOTQxNDA2IDMyNy45MDYyNSA3NDkuODI0MjE5IDI0Ni4xMjUgNzg3LjcxMDkzOCAxNjQuMzM1OTM4IEwgNzM3LjE4NzUgNjEuMzIwMzEyICIgZmlsbC1vcGFjaXR5PSIxIiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48ZyBjbGlwLXBhdGg9InVybCgjNGY0NTc5ZjQ0YykiPjxwYXRoIGZpbGw9IiMwMzYyZTMiIGQ9Ik0gMTEyLjI4OTA2MiA0MTEuMTIxMDk0IEMgMTQzLjkxNzk2OSA0MTEuMTIxMDk0IDE3NS41NDY4NzUgNDExLjEyMTA5NCAyMDcuMTc1NzgxIDQxMS4xMjEwOTQgQyAyNDUuMTcxODc1IDMyOS4yMjY1NjIgMjgzLjE2NDA2MiAyNDcuMzM5ODQ0IDMyMS4xNTYyNSAxNjUuNDQ5MjE5IEwgMjcxLjY0NDUzMSA2NC40ODA0NjkgQyAyMTguNTI3MzQ0IDE4MC4wMjM0MzggMTY1LjQwNjI1IDI5NS41NzAzMTIgMTEyLjI4OTA2MiA0MTEuMTIxMDk0ICIgZmlsbC1vcGFjaXR5PSIxIiBmaWxsLXJ1bGU9Im5vbnplcm8iLz48L2c+PHBhdGggZmlsbD0iIzAzNjJlMyIgZD0iTSA1MzguMjE0ODQ0IDQxMC4wNTA3ODEgQyA1MzguMjI2NTYyIDQxMC4wNTA3ODEgNTM4LjIzODI4MSA0MTAuMDUwNzgxIDUzOC4yNTM5MDYgNDEwLjA1MDc4MSBMIDUzOC4yMzQzNzUgNDEwLjAxMTcxOSBMIDUzOC4yMTQ4NDQgNDEwLjA1MDc4MSAiIGZpbGwtb3BhY2l0eT0iMSIgZmlsbC1ydWxlPSJub256ZXJvIi8+PHBhdGggZmlsbD0iIzAzNjJlMyIgZD0iTSA0NDIuMDkzNzUgNDEwLjEzNjcxOSBDIDQ3MC4wMjczNDQgNDEwLjExNzE4OCA0OTcuOTYwOTM4IDQxMC4wODU5MzggNTI1Ljg5NDUzMSA0MTAuMDYyNSBDIDQ5Ny44NTkzNzUgNDA5Ljg5MDYyNSA0NjkuODMyMDMxIDQwOS43MTQ4NDQgNDQxLjgwMDc4MSA0MDkuNTUwNzgxIEMgNDQxLjg5ODQzOCA0MDkuNzQ2MDk0IDQ0MS45OTYwOTQgNDA5Ljk0MTQwNiA0NDIuMDkzNzUgNDEwLjEzNjcxOSAiIGZpbGwtb3BhY2l0eT0iMSIgZmlsbC1ydWxlPSJub256ZXJvIi8+PHBhdGggZmlsbD0iIzAwMWM1ZCIgZD0iTSA0ODcuMzk0NTMxIDMwNi4zNDM3NSBMIDM2OS4yNjE3MTkgNjUuNDUzMTI1IEwgMjcxLjY0NDUzMSA2NC40ODA0NjkgTCAzMjEuMTU2MjUgMTY1LjQ0OTIxOSBDIDM2MC45OTIxODggMjQ2LjA0Mjk2OSA0MDAuODI0MjE5IDMyNi42NDQ1MzEgNDQwLjY1NjI1IDQwNy4yMzgyODEgQyA0NDEuMDM5MDYyIDQwOC4wMDM5MDYgNDQxLjQxNzk2OSA0MDguNzc3MzQ0IDQ0MS44MDA3ODEgNDA5LjU1MDc4MSBDIDQ2OS44MzIwMzEgNDA5LjcxNDg0NCA0OTcuODU5Mzc1IDQwOS44OTA2MjUgNTI1Ljg5NDUzMSA0MTAuMDYyNSBDIDUzMC4wMDM5MDYgNDEwLjA1ODU5NCA1MzQuMTA1NDY5IDQxMC4wNTg1OTQgNTM4LjIxNDg0NCA0MTAuMDUwNzgxIEwgNTM4LjIzNDM3NSA0MTAuMDExNzE5IEwgNDg3LjM5NDUzMSAzMDYuMzQzNzUgIiBmaWxsLW9wYWNpdHk9IjEiIGZpbGwtcnVsZT0ibm9uemVybyIvPjxwYXRoIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgdHJhbnNmb3JtPSJtYXRyaXgoMC4wNTc2OTg4LCAwLCAwLCAtMC4wNTc2OTg4LCAtMTI2Ljk4ODYzNSwgODEyLjk4NTc4MykiIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGQ9Ik0gNjkwOC44NjYwMjMgMTI5NzIuNjM1OTE5IEwgNzc2Ni45NzI4MjQgMTEyMjIuNzA3MzUgIiBzdHJva2U9IiNiZjFiMmMiIHN0cm9rZS13aWR0aD0iMS4yIiBzdHJva2Utb3BhY2l0eT0iMSIgc3Ryb2tlLW1pdGVybGltaXQ9IjQiLz48L3N2Zz4=" alt="AW Solution">
+      <div class="logo-wordmark">
+        <span class="logo-name">AW Solution</span>
+        <span class="logo-tagline">Fidélisation &amp; CRM</span>
+      </div>
+    </div>
+    <div class="cover-meta">
+      <span class="meta-tag">Contrat de service — Confidentiel</span>
+      <span class="meta-date">Juin 2026</span>
+    </div>
+  </header>
+
+  <div class="cover-body">
+    <div class="contract-label">
+      <span class="contract-dot"></span>
+      <span class="contract-text">Master Service Agreement</span>
+    </div>
+    <h1 class="cover-title">
+      Contrat de service<br>
+      <em>AW Solution.</em>
+    </h1>
+    <div class="cover-divider"></div>
+    <div class="cover-parties">
+      <div class="party-block">
+        <span class="party-label">Le prestataire</span>
+        <span class="party-name">AW Solution</span>
+        <span class="party-sub">Alex Audette</span>
+        <span class="party-neq">NEQ : 2280870389</span>
+      </div>
+      <div class="party-block">
+        <span class="party-label">Le client</span>
+        <span class="party-name">Poké Station</span>
+        <span class="party-sub">M. Bozin</span>
+      </div>
+      <div class="party-block">
+        <span class="party-label">Date d'émission</span>
+        <span class="party-name">Juin 2026</span>
+      </div>
+      <div class="party-block">
+        <span class="party-label">Forfait</span>
+        <span class="party-name">Signature</span>
+        <span class="party-sub">179$ / succursale / mois</span>
+      </div>
+    </div>
+  </div>
+
+  <footer class="cover-footer">
+    <div style="display:flex;flex-direction:column;gap:6px;">
+      <span class="footer-label">Nous joindre</span>
+      <a class="footer-url" href="mailto:support@awsolution.ca">support@awsolution.ca</a>
+    </div>
+    <span style="font-size:11px;font-weight:300;color:var(--text-3);">awsolution.ca</span>
+  </footer>
+</section>
+
+<!-- ═══ SECTION 1 — PARTIES ET OBJET ═══ -->
+<div class="section-alt">
+<div class="section">
+  <div class="eyebrow"><span class="eyebrow-dot"></span><span class="eyebrow-text">Article 1</span></div>
+  <h2 class="section-title">Parties et <em>objet du contrat.</em></h2>
+  <div class="section-divider"></div>
+
+  <div style="max-width:860px;border-top:0.5px solid var(--border);">
+    <div class="clause"><span class="clause-num">1.1</span><div class="clause-content"><span class="clause-title">Parties au contrat</span><span class="clause-text">Le présent contrat est conclu entre AW Solution, entreprise immatriculée au Québec sous le numéro d'entreprise (NEQ) 2280870389, représentée par Alex Audette (ci-après "le Prestataire"), et le client identifié à la page couverture du présent document (ci-après "le Client").</span></div></div>
+    <div class="clause"><span class="clause-num">1.2</span><div class="clause-content"><span class="clause-title">Objet</span><span class="clause-text">Le présent contrat a pour objet de définir les conditions dans lesquelles AW Solution s'engage à concevoir, développer, déployer et maintenir un écosystème de fidélisation mobile pour le Client, conformément aux termes du Proposal Document accepté par les deux parties.</span></div></div>
+    <div class="clause"><span class="clause-num">1.3</span><div class="clause-content"><span class="clause-title">Documents contractuels</span><span class="clause-text">Le présent contrat, conjointement avec le Proposal Document signé, constitue l'intégralité de l'entente entre les parties. En cas de contradiction, le présent contrat prévaut sur le Proposal Document.</span></div></div>
+  </div>
+</div>
+</div>
+
+<!-- ═══ SECTION 2 — SERVICES ET LIVRABLES ═══ -->
+<div class="section">
+  <div class="eyebrow"><span class="eyebrow-dot"></span><span class="eyebrow-text">Article 2</span></div>
+  <h2 class="section-title">Services et <em>livrables.</em></h2>
+  <div class="section-divider"></div>
+
+  <div style="max-width:860px;border-top:0.5px solid var(--border);">
+    <div class="clause"><span class="clause-num">2.1</span><div class="clause-content"><span class="clause-title">Services inclus</span><span class="clause-text">AW Solution s'engage à livrer l'ensemble des services et livrables définis dans le Proposal Document accepté, incluant l'application mobile iOS et Android, le tableau de bord CRM, l'infrastructure backend, le déploiement sur les stores, la formation et le support au lancement.</span></div></div>
+    <div class="clause"><span class="clause-num">2.2</span><div class="clause-content"><span class="clause-title">Services exclus</span><span class="clause-text">Toute fonctionnalité, intégration ou livrable non mentionné dans le Proposal Document est exclu du présent contrat. Toute demande additionnelle fera l'objet d'un avenant tarifaire distinct.</span></div></div>
+    <div class="clause"><span class="clause-num">2.3</span><div class="clause-content"><span class="clause-title">Qualité des livrables</span><span class="clause-text">AW Solution s'engage à livrer des services de qualité professionnelle, conformes aux standards de l'industrie du développement d'applications mobiles.</span></div></div>
+  </div>
+</div>
+
+<!-- ═══ SECTION 3 — TARIFICATION ═══ -->
+<div class="section-alt">
+<div class="section">
+  <div class="eyebrow"><span class="eyebrow-dot"></span><span class="eyebrow-text">Article 3</span></div>
+  <h2 class="section-title">Tarification et <em>facturation.</em></h2>
+  <div class="section-divider"></div>
+
+  <p class="section-body">Définissez les informations tarifaires spécifiques à ce contrat. Le montant mensuel total sera calculé automatiquement.</p>
+
+  <!-- CHAMPS DYNAMIQUES -->
+  <div class="fields-grid">
+    <div class="field-card">
+      <span class="field-label">Nombre de succursales</span>
+      <input class="field-input" type="number" id="nbSucc" placeholder="Ex: 55" min="1" oninput="calcTotal()">
+      <span class="field-note">Nombre de succursales couvertes par ce contrat</span>
+    </div>
+    <div class="field-card">
+      <span class="field-label">Tarif mensuel par succursale</span>
+      <input class="field-input" type="number" id="tarifMens" value="179" min="1" oninput="calcTotal()">
+      <span class="field-note">Selon le forfait retenu</span>
+    </div>
+    <div class="field-card">
+      <span class="field-label">Frais de mise en place</span>
+      <input class="field-input" type="number" id="fraisMep" value="4500" min="0" oninput="calcTotal()">
+      <span class="field-note">Frais unique payable à la signature</span>
+    </div>
+    <div class="field-card">
+      <span class="field-label">Durée de l'engagement</span>
+      <input class="field-input" type="number" id="duree" value="12" min="1" oninput="calcTotal()">
+      <span class="field-note">En mois</span>
+    </div>
+  </div>
+
+  <div class="total-card" id="totalCard">
+    <div style="display:flex;flex-direction:column;gap:4px;">
+      <span class="total-label">Total mensuel estimé</span>
+      <span class="total-sub" id="totalSub">Entrez le nombre de succursales</span>
+    </div>
+    <div style="display:flex;flex-direction:column;align-items:flex-end;gap:4px;">
+      <span class="total-amount" id="totalAmount">—</span>
+      <span class="total-sub">/mois</span>
+    </div>
+  </div>
+
+  <div style="max-width:860px;border-top:0.5px solid var(--border);margin-top:40px;">
+    <div class="clause"><span class="clause-num">3.1</span><div class="clause-content"><span class="clause-title">Frais de mise en place</span><span class="clause-text">Les frais de mise en place sont payables en deux versements égaux : 50% à la signature du présent contrat et 50% avant la soumission de l'application sur les stores. Ces frais couvrent la configuration, le développement et le déploiement initial.</span></div></div>
+    <div class="clause"><span class="clause-num">3.2</span><div class="clause-content"><span class="clause-title">Abonnement mensuel</span><span class="clause-text">L'abonnement mensuel est activé à la date de lancement officiel de l'application. La facturation est effectuée mensuellement par voie électronique. Le tarif est fixe pour la durée de l'engagement et ne peut être modifié qu'avec un préavis de 30 jours.</span></div></div>
+    <div class="clause"><span class="clause-num">3.3</span><div class="clause-content"><span class="clause-title">Taxes</span><span class="clause-text">Tous les montants sont exprimés en dollars canadiens, taxes exclues. La TPS et la TVQ applicables seront ajoutées à chaque facture conformément à la réglementation en vigueur.</span></div></div>
+  </div>
+</div>
+</div>
+
+<!-- ═══ SECTION 4 — DURÉE ET RÉSILIATION ═══ -->
+<div class="section">
+  <div class="eyebrow"><span class="eyebrow-dot"></span><span class="eyebrow-text">Article 4</span></div>
+  <h2 class="section-title">Durée et <em>résiliation.</em></h2>
+  <div class="section-divider"></div>
+
+  <div style="max-width:860px;border-top:0.5px solid var(--border);">
+    <div class="clause"><span class="clause-num">4.1</span><div class="clause-content"><span class="clause-title">Durée du contrat</span><span class="clause-text">Le présent contrat entre en vigueur à la date de signature et demeure actif pour une période initiale de 12 mois à compter de la date de lancement de l'application. À l'expiration de cette période, le contrat se renouvelle automatiquement par périodes de 12 mois, sauf avis contraire transmis par écrit 30 jours avant l'échéance.</span></div></div>
+    <div class="clause"><span class="clause-num">4.2</span><div class="clause-content"><span class="clause-title">Résiliation par le Client</span><span class="clause-text">En cas de résiliation par le Client avant l'échéance de la période d'engagement en cours, le Client est redevable de la totalité des mois restants de l'engagement, calculés sur la base du tarif mensuel en vigueur. Cette obligation de paiement est due dans les 30 jours suivant la notification de résiliation.</span></div></div>
+    <div class="clause"><span class="clause-num">4.3</span><div class="clause-content"><span class="clause-title">Résiliation par AW Solution</span><span class="clause-text">AW Solution se réserve le droit de résilier le présent contrat en cas de défaut de paiement persistant au-delà de 30 jours, de violation des conditions d'utilisation ou de comportement préjudiciable envers AW Solution. Un préavis écrit de 15 jours sera transmis avant toute résiliation.</span></div></div>
+    <div class="clause"><span class="clause-num">4.4</span><div class="clause-content"><span class="clause-title">Effets de la résiliation</span><span class="clause-text">À la résiliation du contrat, l'accès à la plateforme, au tableau de bord et à l'infrastructure sera désactivé. Le Client recevra une exportation complète de ses données clients dans les 15 jours suivant la résiliation effective.</span></div></div>
+  </div>
+</div>
+
+<!-- ═══ SECTION 5 — PROPRIÉTÉ INTELLECTUELLE ═══ -->
+<div class="section-alt">
+<div class="section">
+  <div class="eyebrow"><span class="eyebrow-dot"></span><span class="eyebrow-text">Article 5</span></div>
+  <h2 class="section-title">Propriété <em>intellectuelle.</em></h2>
+  <div class="section-divider"></div>
+
+  <div style="max-width:860px;border-top:0.5px solid var(--border);">
+    <div class="clause"><span class="clause-num">5.1</span><div class="clause-content"><span class="clause-title">Propriété du Client</span><span class="clause-text">Le Client conserve la pleine propriété de son contenu, de ses données clients, de ses logos, de ses actifs de marque et de toute information qu'il fournit à AW Solution dans le cadre de ce projet.</span></div></div>
+    <div class="clause"><span class="clause-num">5.2</span><div class="clause-content"><span class="clause-title">Propriété d'AW Solution</span><span class="clause-text">AW Solution conserve la propriété exclusive de la plateforme, du code source, de l'infrastructure technique et de toute la technologie développée. Le Client bénéficie d'une licence d'utilisation non exclusive et non transférable pour la durée de l'abonnement actif.</span></div></div>
+    <div class="clause"><span class="clause-num">5.3</span><div class="clause-content"><span class="clause-title">Fin de la licence</span><span class="clause-text">La licence d'utilisation prend fin automatiquement à la résiliation du contrat. Le Client ne peut pas reproduire, distribuer, modifier ou exploiter la plateforme d'AW Solution sans autorisation écrite préalable.</span></div></div>
+  </div>
+</div>
+</div>
+
+<!-- ═══ SECTION 6 — CONFIDENTIALITÉ ═══ -->
+<div class="section">
+  <div class="eyebrow"><span class="eyebrow-dot"></span><span class="eyebrow-text">Article 6</span></div>
+  <h2 class="section-title">Confidentialité et <em>protection des données.</em></h2>
+  <div class="section-divider"></div>
+
+  <div style="max-width:860px;border-top:0.5px solid var(--border);">
+    <div class="clause"><span class="clause-num">6.1</span><div class="clause-content"><span class="clause-title">Obligations de confidentialité</span><span class="clause-text">Les deux parties s'engagent à traiter comme confidentielles toutes les informations échangées dans le cadre de ce contrat, incluant les données clients, les stratégies commerciales, les méthodes de travail et les informations financières. Cette obligation demeure en vigueur pendant la durée du contrat et pour 2 ans suivant sa résiliation.</span></div></div>
+    <div class="clause"><span class="clause-num">6.2</span><div class="clause-content"><span class="clause-title">Protection des renseignements personnels</span><span class="clause-text">AW Solution s'engage à traiter les données clients du Client conformément à la Loi 25 (Loi modernisant des dispositions législatives en matière de protection des renseignements personnels) et aux autres lois applicables. Les données ne sont jamais vendues, partagées ou utilisées à des fins autres que celles prévues au contrat.</span></div></div>
+    <div class="clause"><span class="clause-num">6.3</span><div class="clause-content"><span class="clause-title">Incident de sécurité</span><span class="clause-text">En cas d'incident de sécurité affectant les données du Client, AW Solution s'engage à en informer le Client dans les 72 heures suivant la détection de l'incident, conformément aux obligations légales applicables.</span></div></div>
+  </div>
+</div>
+
+<!-- ═══ SECTION 7 — RESPONSABILITÉS ═══ -->
+<div class="section-alt">
+<div class="section">
+  <div class="eyebrow"><span class="eyebrow-dot"></span><span class="eyebrow-text">Article 7</span></div>
+  <h2 class="section-title">Responsabilités et <em>limitations.</em></h2>
+  <div class="section-divider"></div>
+
+  <div style="max-width:860px;border-top:0.5px solid var(--border);">
+    <div class="clause"><span class="clause-num">7.1</span><div class="clause-content"><span class="clause-title">Limitation de responsabilité</span><span class="clause-text">La responsabilité totale d'AW Solution est limitée au montant des frais payés par le Client au cours des 3 derniers mois précédant l'événement donnant lieu à la réclamation. AW Solution ne peut être tenu responsable des pertes de revenus indirectes, des dommages consécutifs ou de tout préjudice résultant d'une interruption causée par un tiers (Apple, Google, Firebase, opérateurs téléphoniques, etc.).</span></div></div>
+    <div class="clause"><span class="clause-num">7.2</span><div class="clause-content"><span class="clause-title">Force majeure</span><span class="clause-text">AW Solution ne peut être tenu responsable de tout retard ou manquement résultant d'événements hors de son contrôle, incluant les pannes de services tiers, les changements de politiques d'Apple ou Google, les catastrophes naturelles ou toute autre circonstance de force majeure.</span></div></div>
+    <div class="clause"><span class="clause-num">7.3</span><div class="clause-content"><span class="clause-title">Responsabilités du Client</span><span class="clause-text">Le Client est responsable de l'exactitude des informations fournies à AW Solution, de la disponibilité d'un représentant désigné et de la promotion de l'application auprès de sa clientèle. AW Solution ne peut être tenu responsable des résultats commerciaux découlant d'une utilisation insuffisante de la plateforme.</span></div></div>
+  </div>
+</div>
+</div>
+
+<!-- ═══ SECTION 8 — DISPOSITIONS GÉNÉRALES ═══ -->
+<div class="section">
+  <div class="eyebrow"><span class="eyebrow-dot"></span><span class="eyebrow-text">Article 8</span></div>
+  <h2 class="section-title">Dispositions <em>générales.</em></h2>
+  <div class="section-divider"></div>
+
+  <div style="max-width:860px;border-top:0.5px solid var(--border);">
+    <div class="clause"><span class="clause-num">8.1</span><div class="clause-content"><span class="clause-title">Droit applicable</span><span class="clause-text">Le présent contrat est régi par les lois de la province de Québec et les lois fédérales canadiennes applicables. Tout litige sera soumis à la juridiction exclusive des tribunaux compétents du Québec.</span></div></div>
+    <div class="clause"><span class="clause-num">8.2</span><div class="clause-content"><span class="clause-title">Intégralité de l'entente</span><span class="clause-text">Le présent contrat et le Proposal Document constituent l'intégralité de l'entente entre les parties et remplacent toute communication, entente ou négociation antérieure relative au même objet.</span></div></div>
+    <div class="clause"><span class="clause-num">8.3</span><div class="clause-content"><span class="clause-title">Modifications</span><span class="clause-text">Toute modification au présent contrat doit être faite par écrit et signée par les deux parties pour être valide.</span></div></div>
+    <div class="clause"><span class="clause-num">8.4</span><div class="clause-content"><span class="clause-title">Divisibilité</span><span class="clause-text">Si une clause du présent contrat est déclarée invalide ou inapplicable, les autres clauses demeurent pleinement en vigueur.</span></div></div>
+  </div>
+</div>
+
+<!-- ═══ SECTION 9 — SIGNATURE ÉLECTRONIQUE ═══ -->
+<div class="section-alt">
+<div class="section">
+  <div class="eyebrow"><span class="eyebrow-dot"></span><span class="eyebrow-text">Signature électronique</span></div>
+  <h2 class="section-title">Acceptation et <em>signature.</em></h2>
+  <div class="section-divider"></div>
+
+  <p class="section-body">En signant ce contrat, les deux parties confirment avoir lu, compris et accepté l'ensemble des termes et conditions définis dans le présent document. Conformément à la Loi concernant le cadre juridique des technologies de l'information (LCCJTI), cette signature électronique a la même valeur légale qu'une signature manuscrite.</p>
+
+  <div class="sig-grid">
+
+    <!-- CLIENT -->
+    <div class="sig-card">
+      <span class="sig-party">Signature du client</span>
+      <div class="sig-field">
+        <span class="sig-field-label">Nom complet</span>
+        <input class="sig-input" type="text" id="clientNom" placeholder="Tapez votre nom complet">
+      </div>
+      <div class="sig-field">
+        <span class="sig-field-label">Titre</span>
+        <input class="sig-input" type="text" id="clientTitre" placeholder="Ex: Directeur général">
+      </div>
+      <div class="sig-field">
+        <span class="sig-field-label">Organisation</span>
+        <span class="sig-field-value">Poké Station</span>
+      </div>
+      <div class="sig-field">
+        <span class="sig-field-label">Date</span>
+        <span class="sig-field-value" id="clientDate">—</span>
+      </div>
+    </div>
+
+    <!-- AW SOLUTION -->
+    <div class="sig-card sig-card--blue">
+      <span class="sig-party sig-party--blue">Signature AW Solution</span>
+      <div class="sig-field">
+        <span class="sig-field-label">Nom complet</span>
+        <span class="sig-field-value">Alex Audette</span>
+      </div>
+      <div class="sig-field">
+        <span class="sig-field-label">Titre</span>
+        <span class="sig-field-value">Fondateur, AW Solution</span>
+      </div>
+      <div class="sig-field">
+        <span class="sig-field-label">NEQ</span>
+        <span class="sig-field-value">2280870389</span>
+      </div>
+      <div class="sig-field">
+        <span class="sig-field-label">Date</span>
+        <span class="sig-field-value" id="awDate">—</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- CASE À COCHER -->
+  <label class="accept-wrap" id="acceptWrap">
+    <input type="checkbox" id="acceptCheck" onchange="checkReady()">
+    <span class="accept-text">
+      Je, <strong id="nomDisplay">______________</strong>, au nom de <strong>Poké Station</strong>, déclare avoir lu et accepté l'intégralité des termes du présent contrat de service avec AW Solution. Je comprends que cette signature électronique constitue un engagement légalement contraignant conformément à la <strong>LCCJTI</strong>.
+    </span>
+  </label>
+
+  <!-- BOUTON SOUMETTRE -->
+  <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap;">
+    <button class="submit-btn" id="submitBtn" disabled onclick="submitContract()">
+      Confirmer et signer le contrat
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M12 5l7 7-7 7" stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <span style="font-size:12px;font-weight:300;color:var(--text-3);">Valide 30 jours à compter de la date d'émission</span>
+  </div>
+
+  <div id="confirmation" style="margin-top:24px;">
+    <strong style="display:block;margin-bottom:8px;">✓ Contrat signé avec succès</strong>
+    Le contrat a été accepté par <span id="confNom"></span> au nom de Poké Station. Un exemplaire vous sera transmis par courriel à support@awsolution.ca. AW Solution communiquera avec vous dans les 24 heures pour confirmer la réception du dépôt initial et planifier l'appel de démarrage.
+  </div>
+
+</div>
+</div>
+
+<script>
+  // Set today's date
+  const today = new Date().toLocaleDateString('fr-CA', {year:'numeric',month:'long',day:'numeric'});
+  document.getElementById('clientDate').textContent = today;
+  document.getElementById('awDate').textContent = today;
+
+  // Sync name to checkbox text
+  document.getElementById('clientNom').addEventListener('input', function() {
+    const val = this.value.trim() || '______________';
+    document.getElementById('nomDisplay').textContent = val;
+    checkReady();
+  });
+
+  function checkReady() {
+    const nom = document.getElementById('clientNom').value.trim();
+    const checked = document.getElementById('acceptCheck').checked;
+    document.getElementById('submitBtn').disabled = !(nom.length > 2 && checked);
+  }
+
+  function calcTotal() {
+    const nb = parseFloat(document.getElementById('nbSucc').value) || 0;
+    const tarif = parseFloat(document.getElementById('tarifMens').value) || 0;
+    const total = nb * tarif;
+    if (total > 0) {
+      document.getElementById('totalAmount').textContent = total.toLocaleString('fr-CA') + '$';
+      document.getElementById('totalSub').textContent = nb + ' succursales × ' + tarif + '$ = ' + total.toLocaleString('fr-CA') + '$/mois';
+    } else {
+      document.getElementById('totalAmount').textContent = '—';
+      document.getElementById('totalSub').textContent = 'Entrez le nombre de succursales';
+    }
+  }
+
+  function submitContract() {
+    const nom = document.getElementById('clientNom').value.trim();
+    document.getElementById('confNom').textContent = nom;
+    document.getElementById('confirmation').style.display = 'block';
+    document.getElementById('submitBtn').disabled = true;
+    document.getElementById('submitBtn').textContent = '✓ Contrat signé';
+    document.getElementById('acceptWrap').style.opacity = '0.5';
+    document.getElementById('acceptWrap').style.pointerEvents = 'none';
+    window.scrollTo({top: document.getElementById('confirmation').offsetTop - 40, behavior: 'smooth'});
+  }
+</script>
+
+</body>
+</html>
