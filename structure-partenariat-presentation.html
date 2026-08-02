@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="fr-CA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Structure de partenariat — AW Solution</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#141F35;
+  --blue:#0362E3;
+  --cream:#EBE5E5;
+  --paper:#F5F2F1;
+  --slate:#6A7183;
+  --hair:#D3CDCC;
+  --white:#FFFFFF;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+
+body{
+  background:var(--paper);
+  color:var(--navy);
+  font-family:"DM Sans",system-ui,sans-serif;
+  font-size:17px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+
+.wrap{max-width:820px;margin:0 auto;padding:0 28px}
+
+h1,h2,h3{font-family:"Playfair Display",Georgia,serif;font-weight:600;line-height:1.15;letter-spacing:-.01em}
+h1{font-size:clamp(2.2rem,6vw,3.4rem)}
+h2{font-size:clamp(1.5rem,4vw,2rem)}
+h3{font-size:1.15rem}
+
+.eyebrow{
+  font-family:"DM Mono",monospace;
+  font-size:.72rem;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:var(--blue);
+}
+.mono{font-family:"DM Mono",monospace;font-variant-numeric:tabular-nums}
+
+header{background:var(--navy);color:var(--cream);padding:72px 0 60px}
+header .eyebrow{color:#7FB0F5}
+header h1{color:var(--white);margin:16px 0 20px;max-width:15ch}
+header p{max-width:54ch;color:#B9BFCC;font-size:1.05rem}
+
+section{padding:56px 0;border-top:1px solid var(--hair)}
+section:first-of-type{border-top:none}
+.sec-head{margin-bottom:32px}
+.sec-head h2{margin-top:10px}
+.lede{max-width:60ch;margin-top:14px;color:#3B4354}
+p+p{margin-top:14px}
+
+.levers{display:grid;gap:18px;grid-template-columns:1fr 1fr;margin-top:8px}
+.lever{background:var(--white);border:1px solid var(--hair);padding:26px 24px}
+.lever .tag{
+  font-family:"DM Mono",monospace;font-size:.7rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--slate);display:block;margin-bottom:10px
+}
+.lever h3{margin-bottom:10px}
+.lever p{font-size:.95rem;color:#3B4354}
+.lever.accent{border-color:var(--blue);box-shadow:inset 3px 0 0 var(--blue)}
+
+.pull{
+  margin:34px 0 0;padding:22px 26px;background:var(--navy);color:var(--cream);
+  font-family:"Playfair Display",serif;font-size:1.2rem;line-height:1.45;
+}
+
+/* ladder */
+.ladder{margin-top:14px}
+.rung{
+  display:grid;grid-template-columns:120px 34px 1fr auto;
+  align-items:start;position:relative;padding:20px 0;
+}
+.rung .thresh{
+  font-family:"DM Mono",monospace;font-size:.92rem;padding-top:2px;
+  text-align:right;padding-right:22px;
+}
+.rung .thresh small{
+  display:block;font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--slate);margin-top:3px
+}
+.spine{position:relative;display:flex;justify-content:center}
+.spine::before{content:"";position:absolute;top:0;bottom:-40px;width:2px;background:var(--hair)}
+.rung:last-child .spine::before{display:none}
+.dot{
+  width:17px;height:17px;border-radius:50%;background:var(--paper);
+  border:2px solid var(--hair);position:relative;z-index:2;margin-top:3px;
+}
+.rung.on .spine::before{background:var(--blue)}
+.rung.on .dot{background:var(--blue);border-color:var(--blue)}
+.rung.start .dot{border-color:var(--navy)}
+.rung .body{padding-left:22px}
+.rung .body strong{display:block;font-size:1.02rem;margin-bottom:3px}
+.rung .body span{font-size:.9rem;color:var(--slate)}
+.rung .total{
+  font-family:"DM Mono",monospace;font-size:1.35rem;font-weight:500;
+  padding-left:20px;white-space:nowrap;
+}
+.rung.on .total{color:var(--blue)}
+.rung.start .total{color:var(--slate)}
+
+.guards{display:grid;gap:16px;margin-top:8px}
+.guard{
+  display:grid;grid-template-columns:44px 1fr;gap:18px;
+  background:var(--white);border:1px solid var(--hair);padding:22px 24px;
+}
+.guard .num{
+  font-family:"DM Mono",monospace;font-size:.95rem;color:var(--blue);
+  border-right:1px solid var(--hair);padding-right:18px;
+}
+.guard h3{margin-bottom:6px;font-size:1.05rem}
+.guard p{font-size:.94rem;color:#3B4354}
+
+.scen{background:var(--white);border:1px solid var(--hair);margin-top:22px}
+.scen-head{
+  padding:22px 26px 18px;border-bottom:1px solid var(--hair);
+  display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;
+}
+.scen-head .n{font-family:"DM Mono",monospace;font-size:.78rem;color:var(--blue);letter-spacing:.14em}
+.scen-head h3{font-size:1.28rem}
+.scen-head .sub{width:100%;font-size:.94rem;color:var(--slate);margin-top:6px}
+.scen-body{padding:24px 26px}
+
+.mini{display:flex;gap:6px;margin-bottom:20px}
+.mini i{flex:1;height:9px;background:var(--cream);border:1px solid var(--hair);display:block}
+.mini i.on{background:var(--blue);border-color:var(--blue)}
+.mini-lab{
+  font-family:"DM Mono",monospace;font-size:.7rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--slate);margin-bottom:8px;display:block
+}
+
+table{width:100%;border-collapse:collapse;font-size:.95rem}
+td{padding:9px 0;border-bottom:1px solid var(--hair);vertical-align:top}
+td:first-child{color:var(--slate);width:52%;padding-right:16px}
+td:last-child{font-family:"DM Mono",monospace;text-align:right;font-variant-numeric:tabular-nums}
+tr:last-child td{border-bottom:none}
+td.big{font-size:1.05rem;font-weight:500}
+td.hi{color:var(--blue)}
+
+.note{
+  margin-top:20px;padding:16px 20px;background:var(--paper);
+  border-left:3px solid var(--blue);font-size:.95rem;
+}
+.note strong{
+  display:block;margin-bottom:5px;font-size:.72rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--blue);font-family:"DM Mono",monospace
+}
+
+.dec{border-top:1px solid var(--hair);padding:22px 0}
+.dec:first-of-type{border-top:none}
+.dec h3{margin-bottom:8px}
+.dec p{font-size:.96rem;color:#3B4354}
+.dec .q{
+  font-family:"DM Mono",monospace;font-size:.72rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--slate);display:block;margin-bottom:8px
+}
+
+footer{background:var(--navy);color:#9AA2B4;padding:44px 0;font-size:.88rem;margin-top:20px}
+footer p{max-width:64ch}
+footer .sig{color:var(--cream);font-family:"Playfair Display",serif;font-size:1.1rem;margin-bottom:16px}
+
+@media (max-width:680px){
+  body{font-size:16px}
+  .wrap{padding:0 20px}
+  .levers{grid-template-columns:1fr}
+  .rung{grid-template-columns:86px 28px 1fr;padding:16px 0}
+  .rung .thresh{font-size:.8rem;padding-right:12px}
+  .rung .body{padding-left:14px}
+  .rung .total{grid-column:3;padding-left:14px;font-size:1.1rem;margin-top:6px}
+  .guard{grid-template-columns:1fr;gap:10px}
+  .guard .num{border-right:none;border-bottom:1px solid var(--hair);padding:0 0 8px}
+  td:first-child{width:50%}
+}
+
+@media (prefers-reduced-motion:no-preference){
+  .rung,.scen{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s ease}
+  .rung.seen,.scen.seen{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <span class="eyebrow">AW Solution</span>
+    <h1>Structure de partenariat</h1>
+    <p>Une plateforme de fidélité et de CRM pour les restaurants du Québec. Voici comment je propose qu'on partage ce qu'on va bâtir ensemble.</p>
+  </div>
+</header>
+
+<main class="wrap">
+
+<section>
+  <div class="sec-head">
+    <span class="eyebrow">Le principe</span>
+    <h2>Deux leviers, deux horizons</h2>
+    <p class="lede">Une commission qui paie tout de suite, des parts qui paient plus tard. Les deux ensemble, parce que l'une sans l'autre ne tient pas la route.</p>
+  </div>
+
+  <div class="levers">
+    <div class="lever accent">
+      <span class="tag">Court terme</span>
+      <h3>La commission</h3>
+      <p>20&nbsp;% du revenu mensuel de chaque client amené, versé tous les mois tant que le client reste. Ce n'est pas une commission unique à la signature : c'est un revenu qui s'accumule contrat après contrat.</p>
+    </div>
+    <div class="lever">
+      <span class="tag">Long terme</span>
+      <h3>Les parts</h3>
+      <p>Jusqu'à 20&nbsp;% de la compagnie, gagnés au fur et à mesure que le revenu récurrent monte. C'est la valeur qui se construit si on réussit — et qui se réalise le jour d'une vente ou d'une distribution de profits.</p>
+    </div>
+  </div>
+
+  <p class="pull">La commission récompense la vente. Les parts récompensent la construction. Je veux que les deux soient sur la table dès le départ.</p>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="eyebrow">Les parts</span>
+    <h2>L'échelle des paliers</h2>
+    <p class="lede">Les parts ne se donnent pas d'avance et ne s'accumulent pas avec le temps passé. Elles se débloquent quand le revenu récurrent de l'entreprise franchit un palier. La logique est simple : ce qui fait grandir la compagnie donne droit à une part de la compagnie.</p>
+  </div>
+
+  <div class="ladder">
+    <div class="rung start">
+      <div class="thresh">0 $<small>Départ</small></div>
+      <div class="spine"><div class="dot"></div></div>
+      <div class="body"><strong>Point de départ</strong><span>Aucune part attribuée d'avance, de part et d'autre.</span></div>
+      <div class="total">0 %</div>
+    </div>
+
+    <div class="rung on">
+      <div class="thresh">1<sup>er</sup> client<small>Payant</small></div>
+      <div class="spine"><div class="dot"></div></div>
+      <div class="body"><strong>Palier 1 &nbsp;·&nbsp; +5 %</strong><span>Le premier client qui paie. Le plus dur des quatre.</span></div>
+      <div class="total">5 %</div>
+    </div>
+
+    <div class="rung on">
+      <div class="thresh">3 000 $<small>par mois</small></div>
+      <div class="spine"><div class="dot"></div></div>
+      <div class="body"><strong>Palier 2 &nbsp;·&nbsp; +5 %</strong><span>Environ 17 succursales. Commission mensuelle : 600 $.</span></div>
+      <div class="total">10 %</div>
+    </div>
+
+    <div class="rung on">
+      <div class="thresh">7 000 $<small>par mois</small></div>
+      <div class="spine"><div class="dot"></div></div>
+      <div class="body"><strong>Palier 3 &nbsp;·&nbsp; +5 %</strong><span>Environ 39 succursales. Commission mensuelle : 1 400 $.</span></div>
+      <div class="total">15 %</div>
+    </div>
+
+    <div class="rung on">
+      <div class="thresh">15 000 $<small>par mois</small></div>
+      <div class="spine"><div class="dot"></div></div>
+      <div class="body"><strong>Palier 4 &nbsp;·&nbsp; +5 %</strong><span>Environ 84 succursales. Commission mensuelle : 3 000 $.</span></div>
+      <div class="total">20 %</div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="eyebrow">Le calcul</span>
+    <h2>Trois règles pour que ce soit clair</h2>
+    <p class="lede">Trois mécaniques qui évitent les zones grises. Elles s'appliquent aux deux côtés, pas juste à un.</p>
+  </div>
+
+  <div class="guards">
+    <div class="guard">
+      <div class="num">01</div>
+      <div>
+        <h3>Un client compte après 3 mois de paiement</h3>
+        <p>Le revenu entre dans le calcul des paliers une fois que le client a payé trois mois. Ça reflète la réalité d'un modèle par abonnement : ce qui compte, c'est le client qui reste, pas la signature.</p>
+      </div>
+    </div>
+    <div class="guard">
+      <div class="num">02</div>
+      <div>
+        <h3>Chaque palier se transfère sur 12 mois</h3>
+        <p>Un palier atteint se verse progressivement sur l'année suivante, à raison de 0,42 % par mois. Les parts suivent le rythme du travail plutôt que d'arriver toutes d'un coup — dans les deux sens.</p>
+      </div>
+    </div>
+    <div class="guard">
+      <div class="num">03</div>
+      <div>
+        <h3>Une valeur de rachat définie d'avance</h3>
+        <p>Si l'un des deux veut sortir, ses parts peuvent être rachetées selon une formule fixée dès le départ. Personne ne se retrouve coincé, et personne ne négocie sa sortie sous pression.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="eyebrow">En pratique</span>
+    <h2>Cinq situations, chiffres à l'appui</h2>
+    <p class="lede">Une structure vaut ce qu'elle donne dans la vraie vie. Voici ce que ça donne concrètement, du pire au meilleur scénario.</p>
+  </div>
+
+  <div class="scen">
+    <div class="scen-head">
+      <span class="n">SITUATION 01</span>
+      <h3>Aucune vente conclue</h3>
+      <span class="sub">Deux ans de tentatives, aucun contrat signé.</span>
+    </div>
+    <div class="scen-body">
+      <span class="mini-lab">Paliers franchis</span>
+      <div class="mini"><i></i><i></i><i></i><i></i></div>
+      <table>
+        <tr><td>Revenu récurrent généré</td><td>0 $</td></tr>
+        <tr><td>Paliers franchis</td><td>Aucun</td></tr>
+        <tr><td>Parts acquises</td><td class="big">0 %</td></tr>
+        <tr><td>Commission versée</td><td class="big">0 $</td></tr>
+      </table>
+      <div class="note">
+        <strong>Ce que ça veut dire</strong>
+        Personne ne doit rien à personne. Pas de dette, pas de part attribuée pour du temps passé, pas de rancune. On se serre la main et on reste corrects.
+      </div>
+    </div>
+  </div>
+
+  <div class="scen">
+    <div class="scen-head">
+      <span class="n">SITUATION 02</span>
+      <h3>Un premier contrat, puis un changement de cap</h3>
+      <span class="sub">Une franchise de 3 succursales signée au mois 3. Départ du partenariat au mois 8.</span>
+    </div>
+    <div class="scen-body">
+      <span class="mini-lab">Paliers franchis</span>
+      <div class="mini"><i class="on"></i><i></i><i></i><i></i></div>
+      <table>
+        <tr><td>Revenu apporté (3 × 179 $)</td><td>537 $/mois</td></tr>
+        <tr><td>Palier 1 franchi au mois 7</td><td>+5 %</td></tr>
+        <tr><td>Parts transférées avant le départ</td><td class="big">0,42 %</td></tr>
+        <tr><td>Commission encaissée</td><td class="big">≈ 537 $</td></tr>
+      </table>
+      <div class="note">
+        <strong>Ce que ça veut dire</strong>
+        Le transfert graduel fait son travail : chacun garde ce qui correspond à ce qui a réellement été bâti. Le client, lui, continue d'être servi sans interruption — c'est ce qui compte le plus pour la réputation des deux.
+      </div>
+    </div>
+  </div>
+
+  <div class="scen">
+    <div class="scen-head">
+      <span class="n">SITUATION 03</span>
+      <h3>Une croissance régulière sur trois ans</h3>
+      <span class="sub">Du travail constant à temps partiel, quelques contrats par année, un portefeuille qui se bâtit.</span>
+    </div>
+    <div class="scen-body">
+      <span class="mini-lab">Paliers franchis</span>
+      <div class="mini"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></div>
+      <table>
+        <tr><td>Année 1 — 12 succursales</td><td>2 148 $/mois</td></tr>
+        <tr><td>Année 2 — 39 succursales</td><td>7 000 $/mois</td></tr>
+        <tr><td>Année 3 — 84 succursales</td><td>15 000 $/mois</td></tr>
+        <tr><td>Parts acquises</td><td class="big hi">20 %</td></tr>
+        <tr><td>Commission, année 3</td><td class="big hi">3 000 $/mois</td></tr>
+        <tr><td>Commission cumulée sur 3 ans</td><td class="big hi">≈ 60 000 $</td></tr>
+      </table>
+      <div class="note">
+        <strong>Ce que ça veut dire</strong>
+        C'est la cible réaliste. 36 000 $ par année en revenu récurrent, sans compter la valeur des 20 % détenus dans une compagnie qui roule à 180 000 $ de revenus annuels. Et à ce stade-là, le portefeuille continue de payer même les mois plus tranquilles.
+      </div>
+    </div>
+  </div>
+
+  <div class="scen">
+    <div class="scen-head">
+      <span class="n">SITUATION 04</span>
+      <h3>Un contrat majeur qui change la trajectoire</h3>
+      <span class="sub">Une bannière de 65 succursales signée au mois 10.</span>
+    </div>
+    <div class="scen-body">
+      <span class="mini-lab">Paliers franchis</span>
+      <div class="mini"><i class="on"></i><i class="on"></i><i class="on"></i><i></i></div>
+      <table>
+        <tr><td>Revenu apporté (65 × 179 $)</td><td class="big">11 635 $/mois</td></tr>
+        <tr><td>Paliers 1, 2 et 3 franchis</td><td class="big hi">15 %</td></tr>
+        <tr><td>Commission mensuelle</td><td class="big hi">2 327 $/mois</td></tr>
+        <tr><td>Commission sur 12 mois</td><td class="big hi">27 924 $/an</td></tr>
+      </table>
+      <div class="note">
+        <strong>Ce que ça veut dire</strong>
+        C'est tout l'intérêt de viser les franchiseurs plutôt que les restaurants uniques. Une seule signature peut franchir trois paliers d'un coup et transformer l'entreprise en dix mois. C'est le scénario qu'on cherche, et la structure est faite pour le récompenser franchement.
+      </div>
+    </div>
+  </div>
+
+  <div class="scen">
+    <div class="scen-head">
+      <span class="n">SITUATION 05</span>
+      <h3>Le portefeuille est bâti, le rythme ralentit</h3>
+      <span class="sub">7 000 $/mois atteints en deux ans, puis moins de temps disponible pour prospecter.</span>
+    </div>
+    <div class="scen-body">
+      <span class="mini-lab">Paliers franchis</span>
+      <div class="mini"><i class="on"></i><i class="on"></i><i class="on"></i><i></i></div>
+      <table>
+        <tr><td>Parts déjà acquises</td><td class="big hi">15 % — conservées</td></tr>
+        <tr><td>Revenu récurrent bâti</td><td>7 000 $/mois</td></tr>
+        <tr><td>Commission</td><td>Liée à un seuil d'activité</td></tr>
+      </table>
+      <div class="note">
+        <strong>Ce que ça veut dire</strong>
+        Les parts gagnées restent acquises, point final. Ce qui est bâti est bâti, et personne ne peut le reprendre.<br><br>
+        La commission, elle, accompagne un rôle actif dans l'entreprise. C'est le point qu'on doit définir ensemble, avec un seuil clair et chiffré — pour que ce soit prévisible des deux bords plutôt que sujet à interprétation le jour où la question se pose.
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head">
+    <span class="eyebrow">La suite</span>
+    <h2>Ce qu'on définit ensemble</h2>
+    <p class="lede">Ce document est une proposition de départ, pas un contrat. Quatre points restent ouverts, et je préfère les régler avec toi plutôt que d'arriver avec une réponse toute faite.</p>
+  </div>
+
+  <div class="dec">
+    <span class="q">Point 01</span>
+    <h3>Le seuil d'activité</h3>
+    <p>Combien de nouveaux contrats par année, ou d'approches par mois, définissent un rôle actif&nbsp;? Un chiffre clair et réaliste, discuté d'avance, vaut mieux qu'une formule vague que personne n'interprète de la même façon.</p>
+  </div>
+
+  <div class="dec">
+    <span class="q">Point 02</span>
+    <h3>Les paliers franchis simultanément</h3>
+    <p>Si un seul contrat traverse trois paliers d'un coup, est-ce que les 15&nbsp;% se débloquent immédiatement, ou est-ce qu'on les étale&nbsp;? Il y a de bons arguments des deux côtés.</p>
+  </div>
+
+  <div class="dec">
+    <span class="q">Point 03</span>
+    <h3>La formule de rachat</h3>
+    <p>Un multiple du revenu annuel appliqué au pourcentage détenu, par exemple. Le chiffre exact compte moins que le fait de l'établir maintenant, pendant que tout va bien.</p>
+  </div>
+
+  <div class="dec">
+    <span class="q">Point 04</span>
+    <h3>L'équilibre entre les deux leviers</h3>
+    <p>20&nbsp;% de commission et jusqu'à 20&nbsp;% de parts, c'est mon point de départ. Si la répartition entre les deux te convient mieux autrement — plus de commission et moins de parts, ou l'inverse — c'est exactement le genre de chose qu'on ajuste maintenant.</p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <p class="sig">On règle le formel quand il y aura un premier client à célébrer.</p>
+    <p>Les montants sont des projections basées sur un prix de 179 $ par succursale par mois. Ils servent à comparer des scénarios entre eux, pas à promettre des revenus.</p>
+    <p style="margin-top:14px">Cette proposition sera formalisée par une convention entre actionnaires rédigée par un avocat avant toute signature.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    document.querySelectorAll('.rung,.scen').forEach(function(el){el.classList.add('seen')});
+    return;
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('seen'); io.unobserve(e.target); }
+    });
+  },{threshold:.15, rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.rung,.scen').forEach(function(el,i){
+    el.style.transitionDelay = (Math.min(i,5)*60)+'ms';
+    io.observe(el);
+  });
+})();
+</script>
+</body>
+</html>
